@@ -1,6 +1,6 @@
 {
   "name": "proto2js",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "./lib/index.js",
   "license": "MIT",
   "readme": "README.md",
@@ -13,7 +13,7 @@
     "url": "git+https://github.com/oyb81076/proto2js.git"
   },
   "scripts": {
-    "prepublish": "rm -rf lib && tsc",
+    "prepare": "rm -rf lib && tsc",
     "pretest": "tsc",
     "test": "node ./bin/proto2js --cwd test --outdir ./dist --js"
   },

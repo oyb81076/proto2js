@@ -26,7 +26,10 @@ if (js) {
   webpack({
     entry: files.map(x => x.replace(/.proto$/, "_pb.js")).map(x => path.join(build, x)),
     mode: "production",
-    output: { path: dist, filename: "proto.js" }
+    output: { path: dist, filename: "proto.js" },
+    resolve: {
+      "alias": { "google-protobuf": require.resolve("google-protobuf") }
+    }
   }).run((err, message)=>{
     if(err) console.error(err)
     else console.log(message.toString({ colors: true }))
