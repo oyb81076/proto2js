@@ -1,4 +1,4 @@
-# 一个命令行proto打包工具
+# 一个命令行proto打包工具, 可生成 proto.d.ts 以及 proto.js
 安装 npm i proto2js -g
 ## 效果
 room.proto
