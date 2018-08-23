@@ -1,5 +1,129 @@
 # 一个命令行proto打包工具
 安装 npm i proto2js -g
+## 效果
+room.proto
+```
+/**
+ * Room
+ */
+syntax = "proto3";
+package room;
+import "user.proto";
+/** RoomType */
+enum RoomType {
+    ROOM_TYPE_NONE = 0;
+    ROOM_TYPE_1 = 1;
+}
+/** Room */
+message Room {
+    // ID
+    string id = 1;
+    // User
+    repeated .user.User user = 2;
+}
+```
+user.proto
+```
+syntax = "proto3";
+package user;
+
+message User {
+    string id = 1;
+}
+```
+执行 ``proto2js --outdir .`` 会在当前目录下生成一个文件proto.d.ts
+```
+/**
+ * Generate Head
+ * 
+ * Room
+ * syntax = "proto3";
+ * package room;
+ * import "user.proto";
+ */
+declare namespace proto.room {
+
+    /**
+     * RoomType
+     */
+    enum RoomType {
+        ROOM_TYPE_NONE = 0,
+        ROOM_TYPE_1 = 1,
+    }
+
+
+    /**
+     * Room
+     */
+    interface IRoom {
+
+        /**
+         * ID
+         */
+        id: string
+
+        /**
+         * User
+         */
+        userList: proto.user.IUser[]
+    }
+
+
+    /**
+     * Room
+     */
+    class Room {
+
+        /**
+         * ID
+         */
+        public setId(v: string): void
+
+        /**
+         * ID
+         */
+        public getId(): string
+
+        /**
+         * User
+         */
+        public setUserList(v: proto.user.User[]): void
+
+        /**
+         * User
+         */
+        public getUserList(): proto.user.User[]
+        public clearUserList(): void
+        public addUser(v: proto.user.User, index: number): void
+        public toObject(): IRoom
+        public serializeBinary(): Uint8Array
+        public static deserializeBinary(buffer: Uint8Array): Room
+    }
+
+}
+
+/**
+ * Generate Head
+ * 
+ * syntax = "proto3";
+ * package user;
+ */
+declare namespace proto.user {
+    interface IUser {
+        id: string
+    }
+
+    class User {
+        public setId(v: string): void
+        public getId(): string
+        public toObject(): IUser
+        public serializeBinary(): Uint8Array
+        public static deserializeBinary(buffer: Uint8Array): User
+    }
+
+}
+```
+
 ## 说明
 `` proto2js --help ``
 
