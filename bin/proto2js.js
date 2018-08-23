@@ -27,6 +27,7 @@ if (js) {
     entry: files.map(x => x.replace(/.proto$/, "_pb.js")).map(x => path.join(build, x)),
     mode: "production",
     output: { path: dist, filename: "proto.js" },
+    performance: { hints: false },
     resolve: {
       "alias": { "google-protobuf": require.resolve("google-protobuf") }
     }
