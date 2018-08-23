@@ -1,0 +1,18 @@
+/**
+ * Room
+ */
+syntax = "proto3";
+package room;
+import "user.proto";
+/** RoomType */
+enum RoomType {
+    ROOM_TYPE_NONE = 0;
+    ROOM_TYPE_1 = 1;
+}
+/** Room */
+message Room {
+    // ID
+    string id = 1;
+    // User
+    repeated .user.User user = 2;
+}
