@@ -16,9 +16,10 @@
     -j, --js               是否生成proto.js
     -h, --help             output usage information
 
-## example
+## example1
 ``proto2js --cwd test --out ./dist``
 > 这个命令会把 test目录下的*.proto文件打包生成 ./dist/proto.d.ts
+## example2
 ``proto2js --js --out .`` 
 > 这个命令会把当前目录下的*.proto文件通过protoc命令生成的js和google-protobuf库文件合并成proto.js文件
 > 同时生成一份 proto.d.ts文件
