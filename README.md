@@ -1,5 +1,5 @@
 # 一个命令行proto打包工具
-
+安装 npm i proto2js -g
 ## proto2js -h
   Usage: proto2js [options]
 
