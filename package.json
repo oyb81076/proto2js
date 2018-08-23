@@ -1,6 +1,6 @@
 {
   "name": "proto2js",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "./lib/index.js",
   "license": "MIT",
   "readme": "README.md",
@@ -13,13 +13,12 @@
     "url": "git+https://github.com/oyb81076/proto2js.git"
   },
   "scripts": {
-    "_prepublish": "rm -rf lib && tsc",
+    "prepublish": "rm -rf lib && tsc",
     "pretest": "tsc",
     "test": "node ./bin/proto2js --cwd test --outdir ./dist --js"
   },
   "bin": {
-    "proto2dts": "./bin/proto2dts.js",
-    "test": "tsc & ./"
+    "proto2js": "./bin/proto2js.js"
   },
   "dependencies": {
     "@types/glob": "^5.0.35",
