@@ -1,6 +1,24 @@
 # 一个命令行proto打包工具, 可生成 proto.d.ts 以及 proto.js
 安装 npm i proto2js -g
-## 效果
+
+## 说明
+`` proto2js --help ``
+
+  Usage: proto2js [options]
+
+  根据.proto 生成 proto.d.ts proto.js
+
+  Options:
+
+    -V, --version          output the version number
+    -s, --src [src]        proto文件地址 (default: *.proto)
+    -c, --cwd [cwd]        proto文件所在目录地址 默认 . (default: .)
+    -o, --outdir [outdir]  文件导出地址 (default: ./dist)
+    -p, --protoc [protoc]  protoc命令地址, windows下面用来指向protoc.exe, 如果环境变量中有就不用改了 (default: protoc)
+    -j, --js               是否生成proto.js
+    -h, --help             output usage information
+
+## Exmaple0
 room.proto
 ```
 /**
@@ -123,23 +141,6 @@ declare namespace proto.user {
 
 }
 ```
-
-## 说明
-`` proto2js --help ``
-
-  Usage: proto2js [options]
-
-  根据.proto 生成 proto.d.ts proto.js
-
-  Options:
-
-    -V, --version          output the version number
-    -s, --src [src]        proto文件地址 (default: *.proto)
-    -c, --cwd [cwd]        proto文件所在目录地址 默认 . (default: .)
-    -o, --outdir [outdir]  文件导出地址 (default: ./dist)
-    -p, --protoc [protoc]  protoc命令地址, windows下面用来指向protoc.exe, 如果环境变量中有就不用改了 (default: protoc)
-    -j, --js               是否生成proto.js
-    -h, --help             output usage information
 
 ## example1
 ``proto2js --cwd test --out ./dist``
