@@ -102,7 +102,7 @@ const writeClass = (out: NodeJS.WritableStream, x: Message, enums: Set<string>, 
         out.write(`${indent2}public get${Name}(): ${type}\n`)
         if (x.repeated) {
             out.write(`${indent2}public clear${Name}(): void\n`)
-            out.write(`${indent2}public add${Name.replace(/List$/, "")}(v: ${type.replace(/\[\]$/, "")}, index: number): void\n`)
+            out.write(`${indent2}public add${Name.replace(/List$/, "")}(v: ${type.replace(/\[\]$/, "")}, index?: number): void\n`)
         }
     })
     out.write(`${indent2}public toObject(): I${x.name}\n`)
