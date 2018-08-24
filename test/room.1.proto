@@ -1,0 +1,12 @@
+/**
+ * Room
+ */
+syntax = "proto3";
+package room;
+import "room.proto";
+/** Room */
+message Room2 {
+    // ID
+    string id = 1;
+    RoomType type = 3;
+}

@@ -10,12 +10,12 @@ const getPropName = ({ repeated, name }: MessageProp, iFace: boolean) => {
         return x[0].toUpperCase() + x.slice(1)
     }).join("") + (repeated ? "List" : "")
 }
-const getTypeName = ({ type, repeated }: MessageProp, iFace: boolean, enums: Set<string>, fullEnums: Set<string>) => {
+const getTypeName = ({ type, repeated }: MessageProp, iFace: boolean, pkg: string, fullEnums: Set<string>) => {
     switch (type) {
         case 'float':
         case 'double':
         case 'int32':
-        case 'int64': 
+        case 'int64':
         case 'uin32':
         case 'uint64':
         case 'sint32':
@@ -38,7 +38,7 @@ const getTypeName = ({ type, repeated }: MessageProp, iFace: boolean, enums: Set
             return repeated ? sp.join('.') + '[]' : sp.join('.')
         }
     } else {
-        if (!iFace || enums.has(type)) {
+        if (!iFace || fullEnums.has("proto." + pkg + "." + type)) {
             return repeated ? type + '[]' : type
         } else {
             return repeated ? "I" + type + '[]' : 'I' + type
@@ -78,24 +78,24 @@ const writeEnum = (out: NodeJS.WritableStream, x: Enum) => {
     })
     out.write(indent1 + '}\n\n')
 }
-const writeInterface = (out: NodeJS.WritableStream, x: Message, enums: Set<string>, fullEnums: Set<string>) => {
+const writeInterface = (out: NodeJS.WritableStream, x: Message, pkg: string, fullEnums: Set<string>) => {
     writeComment(out, x.comment, indent1)
     out.write(`${indent1}interface I${x.name} {\n`)
     x.props.forEach(x => {
         const name = getPropName(x, true)
-        const type = getTypeName(x, true, enums, fullEnums)
+        const type = getTypeName(x, true, pkg, fullEnums)
         writeComment(out, x.comment, indent2)
         out.write(`${indent2}${name}: ${type}\n`)
     })
     out.write(indent1)
     out.write('}\n\n')
 }
-const writeClass = (out: NodeJS.WritableStream, x: Message, enums: Set<string>, fullEnums: Set<string>) => {
+const writeClass = (out: NodeJS.WritableStream, x: Message, pkg: string, fullEnums: Set<string>) => {
     writeComment(out, x.comment, indent1)
     out.write(`${indent1}class ${x.name} {\n`)
     x.props.forEach(x => {
         const Name = getPropName(x, false)
-        const type = getTypeName(x, false, enums, fullEnums)
+        const type = getTypeName(x, false, pkg, fullEnums)
         writeComment(out, x.comment, indent2)
         out.write(`${indent2}public set${Name}(v: ${type}): void\n`)
         writeComment(out, x.comment, indent2)
@@ -117,8 +117,8 @@ export const write = (out: NodeJS.WritableStream, proto: Proto, fullEnums: Set<s
     for (let x of proto.children) {
         if (x instanceof Message) {
             // interface
-            writeInterface(out, x, proto.enums, fullEnums)
-            writeClass(out, x, proto.enums, fullEnums)
+            writeInterface(out, x, proto.package, fullEnums)
+            writeClass(out, x, proto.package, fullEnums)
         } else if (x instanceof Enum) {
             writeEnum(out, x)
         }

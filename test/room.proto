@@ -13,6 +13,7 @@ enum RoomType {
 message Room {
     // ID
     string id = 1;
+    RoomType type = 3;
     // User
     repeated .user.User user = 2;
 }
