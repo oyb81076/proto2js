@@ -36,4 +36,5 @@ if (js) {
     else console.log(message.toString({ colors: true }))
   })
 }
-proto2dts.run(files.map(x => path.join(cwd, x)), path.join(dist, "proto.d.ts"))
+const stream = fs.createWriteStream(path.join(dist, "proto.d.ts"))
+proto2dts.run(files.map(x => path.join(cwd, x)), stream)
